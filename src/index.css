@@ -111,3 +111,25 @@
 body {
     font-family: 'Poppins';
 }
+
+@layer utilities {
+  :root {
+    --color-primary: #b70000;
+    --color-accent: #910303;
+  }
+
+  .bg-main {
+    background-color: var(--color-primary);
+  }
+  .text-main {
+    color: var(--color-primary);
+  }
+
+  .bg-accent {
+    background-color: var(--color-accent);
+  }
+  .text-accent {
+    color: var(--color-accent);
+  }
+}
+
