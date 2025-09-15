@@ -48,58 +48,58 @@ const Services = () => {
         {/* List of Services */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {/* Service 1 */}
-          <div className="bg-white bg-opacity-10 rounded-lg p-6 text-center">
+          <div className="bg-white/10 rounded-lg p-6 text-center">
             <h2 className="text-xl font-semibold">Machine Health Monitoring</h2>
           </div>
 
           {/* Service 2 */}
-          <div className="bg-white bg-opacity-10 rounded-lg p-6 text-center">
+          <div className="bg-white/10 rounded-lg p-6 text-center">
             <h2 className="text-xl font-semibold">Preventive Maintenance</h2>
           </div>
 
           {/* Service 3 */}
-          <div className="bg-white bg-opacity-10 rounded-lg p-6 text-center">
+          <div className="bg-white/10 rounded-lg p-6 text-center">
             <h2 className="text-xl font-semibold">Vibration Analysis</h2>
           </div>
 
           {/* Service 4 */}
-          <div className="bg-white bg-opacity-10 rounded-lg p-6 text-center">
+          <div className="bg-white/10 rounded-lg p-6 text-center">
             <h2 className="text-xl font-semibold">
               Lubrication and Fluid Management
             </h2>
           </div>
 
           {/* Service 5 */}
-          <div className="bg-white bg-opacity-10 rounded-lg p-6 text-center">
+          <div className="bg-white/10 rounded-lg p-6 text-center">
             <h2 className="text-xl font-semibold">Thermography Inspection</h2>
           </div>
 
           {/* Service 6 */}
-          <div className="bg-white bg-opacity-10 rounded-lg p-6 text-center">
+          <div className="bg-white/10 rounded-lg p-6 text-center">
             <h2 className="text-xl font-semibold">Root Cause Analysis</h2>
           </div>
 
           {/* Service 7 */}
-          <div className="bg-white bg-opacity-10 rounded-lg p-6 text-center">
+          <div className="bg-white/10 rounded-lg p-6 text-center">
             <h2 className="text-xl font-semibold">
               Condition-Based Monitoring
             </h2>
           </div>
 
           {/* Service 8 */}
-          <div className="bg-white bg-opacity-10 rounded-lg p-6 text-center">
+          <div className="bg-white/10 rounded-lg p-6 text-center">
             <h2 className="text-xl font-semibold">
               Machine Calibration and Optimization
             </h2>
           </div>
 
           {/* Service 9 */}
-          <div className="bg-white bg-opacity-10 rounded-lg p-6 text-center">
+          <div className="bg-white/10 rounded-lg p-6 text-center">
             <h2 className="text-xl font-semibold">Emergency Repairs</h2>
           </div>
 
           {/* Service 10 */}
-          <div className="bg-white bg-opacity-10 rounded-lg p-6 text-center lg:col-span-3">
+          <div className="bg-white/10 rounded-lg p-6 text-center lg:col-span-3">
             <h2 className="text-xl font-semibold">Training & Consultation</h2>
           </div>
         </div>
