@@ -228,5 +228,37 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+=======
+html {
+  scroll-behavior: smooth;
+}
+
+@layer utilities {
+  :root {
+    --color-primary: #b70000;
+    --color-accent: #910303;
+  }
+
+  .bg-main {
+    background-color: var(--color-primary);
+  }
+  .text-main {
+    color: var(--color-primary);
+  }
+
+  .bg-accent {
+    background-color: var(--color-accent);
+  }
+  .text-accent {
+    color: var(--color-accent);
+  }
+}
+
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 5s linear infinite;
+  }
+  .animate-spin-slower {
+    animation: spin 10s linear infinite;
   }
 }
