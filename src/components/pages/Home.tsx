@@ -7,7 +7,7 @@ import ArrowButtonUp from "../ui/ArrowButtonUp";
 
 const Home = () => {
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full bg-[#eee8e8] overflow-x-hidden">
       <Hero />
       <div id="about">
         <About />
