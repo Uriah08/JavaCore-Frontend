@@ -93,7 +93,7 @@ const Hero: React.FC<HeroProps> = ({ user, status }) => {
         <img
           src="/gear.svg"
           alt="gear"
-          className="absolute -right-10 animate-spin w-[200px] bottom-0 opacity-65"
+          className="absolute -right-10 w-[200px] bottom-0 opacity-65 animate-spin-slow"
         />
 
         {/* Navbar */}

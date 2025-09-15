@@ -133,3 +133,11 @@ body {
   }
 }
 
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 5s linear infinite;
+  }
+  .animate-spin-slower {
+    animation: spin 10s linear infinite;
+  }
+}
