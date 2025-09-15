@@ -112,6 +112,10 @@ body {
     font-family: 'Poppins';
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @layer utilities {
   :root {
     --color-primary: #b70000;
