@@ -3,8 +3,8 @@ import Home from "./components/pages/Home"
 import Login from "./auth/Login"
 import Test from "./components/pages/Test"
 import { useAuthContext } from "./context/AuthProvider"
-import AdminDashboard from "./components/pages/admin/Dashboard"
-import UserDashboard from "./components/pages/user/Dashboard"
+import AdminDashboard from "./components/pages/admin/AdminDashboard"
+import UserDashboard from "./components/pages/user/UserDashboard"
 import type { JSX } from "react"
 
 function App() {
