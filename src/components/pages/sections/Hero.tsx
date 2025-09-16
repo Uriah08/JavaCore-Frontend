@@ -71,7 +71,7 @@ const Hero: React.FC<HeroProps> = ({ user, status }) => {
             )
           ) : (
             <Link
-              to="/auth/sign-in"
+              to="/auth/login"
               className="bg-main hover:bg-follow px-10 py-3 rounded-full font-semibold text-white"
             >
               Sign In
@@ -150,7 +150,7 @@ const Hero: React.FC<HeroProps> = ({ user, status }) => {
             )
           ) : (
             <Link
-              to="/auth/sign-in"
+              to="/auth/login"
               className="bg-main hidden lg:block hover:bg-follow px-10 py-3 rounded-full font-semibold text-white"
             >
               Sign In
