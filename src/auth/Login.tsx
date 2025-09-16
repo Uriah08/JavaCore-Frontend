@@ -14,11 +14,13 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { loginSchema } from '@/schema'
-// import { useAuthContext } from '@/context/AuthProvider'
+import { useLoginMutation } from '@/store/auth-api'
+import { toast } from "sonner"
+import { useAuthContext } from '@/context/AuthProvider'
 
 const Login = () => {
-    // const { setAuthUser } = useAuthContext();
-    // const [loginUser, { isLoading }] = useLoginUserMutation();
+    const { setAuthUser } = useAuthContext();
+    const [login, { isLoading }] = useLoginMutation();
 
     const form = useForm<z.infer<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
@@ -30,12 +32,13 @@ const Login = () => {
 
     async function onSubmit(values: z.infer<typeof loginSchema>) {
         try {
-          console.log(values);
-          
-            // const response = await loginUser(values).unwrap();
-            // setAuthUser(response.user)
+          const response = await login(values).unwrap();
+          setAuthUser(response.user)
+          toast(response.message)
         } catch (error) {
-            console.log(error);
+          const apiError = error as { data?: { error?: string } };
+          const errorMsg = apiError?.data?.error ?? "An unexpected error occurred";
+          toast.error(errorMsg);
         }
     }
   
@@ -74,7 +77,7 @@ const Login = () => {
                         />
                         <div className='flex flex-col w-full'>
                             <Button className='bg-primary w-full cursor-pointer mt-5'>
-                                Sign In
+                                { isLoading ? 'Loading...' : 'Sign In'}
                             </Button>
                         </div>
                     </form>
