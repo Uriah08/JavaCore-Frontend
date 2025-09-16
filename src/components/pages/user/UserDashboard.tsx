@@ -17,7 +17,7 @@ const UserDashboard = () => {
   };
   return (
     <div>
-      <h1>User Dashboard</h1>
+      <h1>User Dashboard, Test</h1>
       <Button onClick={handleLogout}>Log out</Button>
     </div>
   )

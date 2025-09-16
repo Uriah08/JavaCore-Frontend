@@ -17,7 +17,7 @@ const AdminDashboard = () => {
   };
   return (
     <div>
-      <h1>Admin Dashboard</h1>
+      <h1>Admin Dashboard, Test</h1>
       <Button onClick={handleLogout}>Log out</Button>
     </div>
   )
