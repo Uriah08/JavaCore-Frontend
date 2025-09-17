@@ -34,7 +34,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import SidebarLayout from "./SidebarLayout";
 
-// dummy schema 
+// dummy schema
 const jobSchema = z.object({
   client: z.string().min(1, "Client is required"),
   area: z.string().min(1, "Area is required"),
@@ -193,6 +193,9 @@ const AdminCreateJob: React.FC = () => {
                 />
 
                 {/* Job numbers */}
+                <h1 className="my-5 text-sm text-zinc-700">
+                  Enter the following information
+                </h1>
                 <div className="flex md:flex-row flex-col gap-3 w-full">
                   <FormField
                     control={form.control}
@@ -201,8 +204,13 @@ const AdminCreateJob: React.FC = () => {
                       <FormItem className="w-full md:w-1/2">
                         <FormLabel>Job Number</FormLabel>
                         <FormControl>
-                          <Input placeholder="Enter job number..." {...field} />
+                          <Input
+                            className="text-sm"
+                            placeholder="Enter your job number..."
+                            {...field}
+                          />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -213,8 +221,49 @@ const AdminCreateJob: React.FC = () => {
                       <FormItem className="w-full md:w-1/2">
                         <FormLabel>PO Number</FormLabel>
                         <FormControl>
-                          <Input placeholder="Enter PO number..." {...field} />
+                          <Input
+                            className="text-sm"
+                            placeholder="Enter your PO number..."
+                            {...field}
+                          />
                         </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="flex md:flex-row flex-col gap-3 w-full">
+                  <FormField
+                    control={form.control}
+                    name="woNo"
+                    render={({ field }) => (
+                      <FormItem className="w-full md:w-1/2">
+                        <FormLabel>WO Number</FormLabel>
+                        <FormControl>
+                          <Input
+                            className="text-sm"
+                            placeholder="Enter your WO number..."
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="reportNo"
+                    render={({ field }) => (
+                      <FormItem className="w-full md:w-1/2">
+                        <FormLabel>Report Number</FormLabel>
+                        <FormControl>
+                          <Input
+                            className="text-sm"
+                            placeholder="Enter your report number..."
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -239,6 +288,9 @@ const AdminCreateJob: React.FC = () => {
                 />
 
                 {/* Method at Inspector */}
+                <h1 className="text-sm text-zinc-700 my-5">
+                  Important Information
+                </h1>
                 <div className="flex md:flex-row flex-col gap-3 w-full">
                   <FormField
                     control={form.control}
@@ -295,60 +347,119 @@ const AdminCreateJob: React.FC = () => {
                     )}
                   />
                 </div>
+                {/* Dummy Form Fields */}
+                <div className="flex md:flex-row flex-col gap-3 w-full">
+                  <FormField
+                    control={form.control}
+                    name="inspectionRoute"
+                    render={({ field }) => (
+                      <FormItem className="w-full md:w-1/2">
+                        <FormLabel>Inspection Route</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          value={field.value}
+                        >
+                          <FormControl className="w-full">
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select a route" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="route1">Route A</SelectItem>
+                            <SelectItem value="route2">Route B</SelectItem>
+                            <SelectItem value="route3">Route C</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="equipmentUse"
+                    render={({ field }) => (
+                      <FormItem className="w-full md:w-1/2">
+                        <FormLabel>Equipment Use</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          value={field.value}
+                        >
+                          <FormControl className="w-full">
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select equipment" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="equipment1">
+                              Equipment 1
+                            </SelectItem>
+                            <SelectItem value="equipment2">
+                              Equipment 2
+                            </SelectItem>
+                            <SelectItem value="equipment3">
+                              Equipment 3
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
                 {/* Date Registered */}
-                <FormField
-                  control={form.control}
-                  name="dateRegistered"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col w-full md:w-1/2">
-                      <FormLabel>Date Registered</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant="outline"
-                              className={cn(
-                                "w-full pl-3 text-left font-normal",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value ? (
-                                format(field.value, "PPP")
-                              ) : (
-                                <span>Pick a date</span>
-                              )}
-                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={field.value}
-                            onSelect={field.onChange}
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <div className="flex md:flex-row flex-col gap-3 w-full">
+                  <FormField
+                    control={form.control}
+                    name="dateRegistered"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col w-full md:w-1/2">
+                        <FormLabel>Date Registered</FormLabel>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant="outline"
+                                className={cn(
+                                  "w-full pl-3 text-left font-normal",
+                                  !field.value && "text-muted-foreground"
+                                )}
+                              >
+                                {field.value ? (
+                                  format(field.value, "PPP")
+                                ) : (
+                                  <span>Pick a date</span>
+                                )}
+                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={field.value}
+                              onSelect={field.onChange}
+                              initialFocus
+                            />
+                          </PopoverContent>
+                        </Popover>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-                {/* Year/Week */}
-                <FormField
-                  control={form.control}
-                  name="yearWeekNo"
-                  render={({ field }) => (
-                    <FormItem className="w-full md:w-1/2">
-                      <FormLabel>Year & Week Number</FormLabel>
-                      <FormControl>
-                        <Input placeholder="YYYY-WW" {...field} />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
+                  {/* Year/Week */}
+                  <FormField
+                    control={form.control}
+                    name="yearWeekNo"
+                    render={({ field }) => (
+                      <FormItem className="w-full md:w-1/2">
+                        <FormLabel>Year & Week Number</FormLabel>
+                        <FormControl>
+                          <Input placeholder="YYYY-WW" {...field} />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
                 {/* Submit */}
                 <Button

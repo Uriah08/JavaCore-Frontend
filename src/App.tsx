@@ -14,7 +14,7 @@ import type { JSX } from "react";
 import AdminJobRegistry from "./components/pages/admin/AdminJobRegistry";
 import AdminCreateJob from "./components/pages/admin/AdminCreateJob";
 import AdminCreateRoute from "./components/pages/admin/AdminCreateRoute";
-// import AdminAnalysisReport from "./components/pages/admin/AdminAnalysisReport";
+import AdminAnalysisAndReport from "./components/pages/admin/AdminAnalysisAndReport";
 // import AdminUsers from "./components/pages/admin/AdminUsers";
 // import AdminMachineList from "./components/pages/admin/AdminMachineList";
 import UserJobRegistry from "./components/pages/user/UserJobRegistry";
@@ -70,15 +70,16 @@ function App() {
             </ProtectedRoute>
           }
         />
-        {/*
+        
         <Route
           path="/analysis-report"
           element={
             <ProtectedRoute>
-              <AdminAnalysisReport />
+              <AdminAnalysisAndReport />
             </ProtectedRoute>
           }
         />
+        {/*
         <Route
           path="/users"
           element={
