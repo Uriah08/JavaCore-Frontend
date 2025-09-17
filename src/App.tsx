@@ -3,9 +3,9 @@ import Home from "./components/pages/Home"
 import Login from "./auth/Login"
 import Test from "./components/pages/Test"
 import { useAuthContext } from "./context/AuthProvider"
-import AdminDashboard from "./components/pages/admin/AdminDashboard"
-import UserDashboard from "./components/pages/user/UserDashboard"
 import type { JSX } from "react"
+import AdminJobRegistry from "./components/pages/admin/AdminJobRegistry"
+import UserJobRegistry from "./components/pages/user/UserJobRegistry"
 
 function App() {
   const { authUser } = useAuthContext();
@@ -25,12 +25,12 @@ function App() {
         <Route
           path="/auth/login"
           element={
-            authUser ? <Navigate to="/dashboard" replace /> : <Login />
+            authUser ? <Navigate to="/job-registry" replace /> : <Login />
           }
         />
-        <Route path="/dashboard" element={
+        <Route path="/job-registry" element={
           <ProtectedRoute>
-            {authUser?.role === 'admin' ? <AdminDashboard/> : <UserDashboard/>}
+            {authUser?.role === 'admin' ? <AdminJobRegistry/> : <UserJobRegistry/>}
           </ProtectedRoute>}/>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
