@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import globalReducer from '@/store/index'
 import { api } from '@/store/api';
 import { authApi } from '@/store/auth-api';
+import { jobApi } from '@/store/job-api';
 import {
   persistReducer,
   FLUSH,
@@ -26,7 +27,8 @@ const persistConfig = { key: 'root', storage, whitelist: ['global'] };
 const rootReducer = combineReducers({
   global: globalReducer,
   [api.reducerPath]: api.reducer,
-  [authApi.reducerPath]: authApi.reducer
+  [authApi.reducerPath]: authApi.reducer,
+  [jobApi.reducerPath]: jobApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -37,7 +39,7 @@ export const makeStore = () =>
     middleware: (getDefault) =>
       getDefault({
         serializableCheck: { ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER] },
-      }).concat(api.middleware).concat(authApi.middleware),
+      }).concat(api.middleware).concat(authApi.middleware).concat(jobApi.middleware),
   });
 
 export type AppStore = ReturnType<typeof makeStore>;

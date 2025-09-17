@@ -1,4 +1,3 @@
-// src/pages/admin/AdminCreateJob.tsx
 import React from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -33,51 +32,50 @@ import { Calendar } from "@/components/ui/calendar";
 
 import { cn } from "@/lib/utils";
 import SidebarLayout from "./SidebarLayout";
+import { useCreateJobMutation } from "@/store/job-api";
+import { jobSchema } from "@/schema";
+import { toast } from "sonner";
 
-// dummy schema
-const jobSchema = z.object({
-  client: z.string().min(1, "Client is required"),
-  area: z.string().min(1, "Area is required"),
-  dateSurveyed: z.date(),
-  jobNo: z.string(),
-  poNo: z.string(),
-  woNo: z.string(),
-  reportNo: z.string(),
-  jobDescription: z.string(),
-  method: z.string(),
-  inspector: z.string(),
-  inspectionRoute: z.string(),
-  equipmentUse: z.string(),
-  dateRegistered: z.date(),
-  yearWeekNo: z.string(),
-});
 
 const AdminCreateJob: React.FC = () => {
-  const form = useForm<z.infer<typeof jobSchema>>({
-    resolver: zodResolver(jobSchema),
-    defaultValues: {
-      client: "",
-      area: "",
-      dateSurveyed: new Date(),
-      jobNo: "",
-      poNo: "",
-      woNo: "",
-      reportNo: "",
-      jobDescription: "",
-      method: "",
-      inspector: "",
-      inspectionRoute: "",
-      equipmentUse: "",
-      dateRegistered: new Date(),
-      yearWeekNo: "",
-    },
-  });
 
-  const onSubmit = (values: z.infer<typeof jobSchema>) => {
-    console.log("Form submitted:", values);
-    alert("✅ Job created successfully (static demo)");
-    form.reset();
-  };
+  const form = useForm<z.infer<typeof jobSchema>>({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  resolver: zodResolver(jobSchema) as any,
+  defaultValues: {
+    client: "cmfmcd1e10000jok00jggjmcr",
+    area: "Area 1",
+    dateSurveyed: new Date("2025-09-17"),
+    jobNo: "JOB-123",
+    poNo: "PO-456",
+    woNo: "WO-789",
+    reportNo: "REP-001",
+    jobDescription: "This is a test job description.",
+    method: "Method 1",
+    inspector: "Inspector 1",
+    inspectionRoute: "route1",
+    equipmentUse: "equipment1",
+    dateRegistered: new Date("2025-09-17"),
+    yearWeekNo: "2025-38",
+  },
+  mode: "onBlur",
+  shouldUnregister: true,
+});
+
+const [createJob] = useCreateJobMutation(); 
+
+async function onSubmit(values: z.infer<typeof jobSchema>) {
+  console.log("Form submitted:", values); 
+
+  try {
+    const response = await createJob(values).unwrap(); 
+    toast(response.message);
+  } catch (error) {
+    const apiError = error as { data?: { error?: string } };
+    const errorMsg = apiError?.data?.error ?? "An unexpected error occurred";
+    toast.error(errorMsg);
+  }
+}
 
   return (
     <SidebarLayout>
