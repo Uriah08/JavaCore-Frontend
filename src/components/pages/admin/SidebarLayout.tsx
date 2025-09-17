@@ -45,7 +45,7 @@ const SidebarLayout = ({ children }: Props) => {
         {/* Toggle button */}
         <div
           onClick={() => setOpen(!open)}
-          className="cursor-pointer absolute bg-main w-3 h-10 -right-[12px] top-1/2 -translate-y-1/2 rounded-e-lg flex items-center justify-center"
+          className="cursor-pointer absolute bg-main w-5 h-10 -right-[20px] top-1/2 -translate-y-1/2 rounded-e-lg flex items-center justify-center"
         >
           <ChevronLeft
             className={`text-white transition-transform ${
