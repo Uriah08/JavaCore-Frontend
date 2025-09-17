@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import { useAuthContext } from "@/context/AuthProvider";
 import { useLogoutMutation } from "@/store/auth-api";
 
-const UserDashboard = () => {
+const UserJobRegistry = () => {
   const [logout] = useLogoutMutation();
   const { setAuthUser } = useAuthContext();
 
@@ -23,4 +23,4 @@ const UserDashboard = () => {
   )
 }
 
-export default UserDashboard
+export default UserJobRegistry
