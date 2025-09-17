@@ -34,6 +34,9 @@ import { EquipmentUpload } from "@/components/container/analysis/admin/Equipment
 import { EquipmentView } from "@/components/container/analysis/admin/EquipmentView";
 import { FigureUpload } from "@/components/container/analysis/admin/FigureUpload";
 import { FigureView } from "@/components/container/analysis/admin/FigureView";
+import EquipmentDetails from "./EquipmentDetails";
+import Temperature from "@/components/container/analysis/admin/Temperature";
+import OilAnalysis from "@/components/container/analysis/admin/OilAnalysis";
 
 // dummy zod schema
 const analysisAndReportSchema = z.object({
@@ -102,8 +105,8 @@ const AnalysisAndReportForm = () => {
     (typeof dummyComponents)[0] | null
   >(null);
 
-    const [activeDrawing, setActiveDrawing] = React.useState("view")
-    const [activeFigure, setActiveFigure] = React.useState("add")
+  const [activeDrawing, setActiveDrawing] = React.useState("view");
+  const [activeFigure, setActiveFigure] = React.useState("add");
   const [hideList, setHideList] = React.useState(false);
 
   const form = useForm<FormData>({
@@ -511,6 +514,31 @@ const AnalysisAndReportForm = () => {
                         activeFigure === "delete") && (
                         <FigureView isDelete={activeFigure === "delete"} />
                       )}
+                    </div>
+                  </div>
+                </div>
+                {/* ####################### EQUIPMENT MECHANICAL DETAILS ######################### */}
+
+                <div className="flex flex-col md:flex-row gap-3 mt-3">
+                  <EquipmentDetails
+                    isLoading={dummyIsLoading}
+                    selectedComponent={dummySelectedComponent}
+                    selectedJob={selectedJob}
+                  />
+                  {/* ####################### TEMPARATURE AND OIL ANALYSIS ######################### */}
+
+                  <div className="flex flex-col gap-3 w-full md:w-1/2">
+                    <div className="flex flex-col gap-3 w-full">
+                      <Temperature
+                        isLoading={dummyIsLoading}
+                        selectedComponent={dummySelectedComponent}
+                      />
+                    </div>
+                    <div className="flex flex-col gap-3 w-full">
+                      <OilAnalysis
+                        isLoading={dummyIsLoading}
+                        selectedComponent={dummySelectedComponent}
+                      />
                     </div>
                   </div>
                 </div>
