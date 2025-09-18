@@ -1,40 +1,61 @@
-import React from "react";
 import SidebarLayout from "./SidebarLayout";
 import { BookmarkCheck, Route, WalletCards } from "lucide-react";
 import AnalogClock from "@/components/ui/clock";
+import { DataTable } from "@/components/container/tables/job-registry/data-table";
+import { useColumns } from "@/components/container/tables/job-registry/columns";
+import { useGetJobsQuery } from "@/store/job-api";
+import { WaveChart } from "@/components/container/charts/date-surveryed-chart";
+import { Skeleton } from "@/components/ui/skeleton";
+import { PieCharts } from "@/components/container/charts/pie-chart";
 
 const AdminJobRegistry = () => {
+  const columns = useColumns();
+  const { data, isLoading: jobsLoading } = useGetJobsQuery();
+  const jobsData = data?.jobs ?? []
+
+  const chart1 = jobsData.map((job) => job.dateSurveyed).filter((date) => date);
+  const chart2 = jobsData.map((job) => job.status).filter((status) => status);
+
+  const finishedJobs = jobsData.filter((job) => job.dateFinished);
+
+  const recentJobs = [...(data?.jobs || [])]
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    )
+    .slice(0, 3);
+  
   // dummy data muna
-  const jobs = [
-    {
-      id: 1,
-      user: { name: "Bornok" },
-      jobDescription: "Pump inspection",
-      status: "Waiting for Analysis",
-      createdAt: "2025-09-10",
-    },
-    {
-      id: 2,
-      user: { name: "kengkoy" },
-      jobDescription: "Gearbox test",
-      status: "Being Analysed",
-      createdAt: "2025-09-14",
-    },
-    {
-      id: 3,
-      user: { name: "joburat" },
-      jobDescription: "Vibration check",
-      status: "Finished",
-      createdAt: "2025-09-15",
-    },
-  ];
+  // const jobs = [
+  //   {
+  //     id: 1,
+  //     user: { name: "Bornok" },
+  //     jobDescription: "Pump inspection",
+  //     status: "Waiting for Analysis",
+  //     createdAt: "2025-09-10",
+  //   },
+  //   {
+  //     id: 2,
+  //     user: { name: "kengkoy" },
+  //     jobDescription: "Gearbox test",
+  //     status: "Being Analysed",
+  //     createdAt: "2025-09-14",
+  //   },
+  //   {
+  //     id: 3,
+  //     user: { name: "joburat" },
+  //     jobDescription: "Vibration check",
+  //     status: "Finished",
+  //     createdAt: "2025-09-15",
+  //   },
+  // ];
 
   const routes = [
     { id: 1, routeName: "Route A" },
     { id: 2, routeName: "Route B" },
   ];
 
-  const finishedJobs = jobs.filter((j) => j.status === "Finished");
+  // const finishedJobs = jobs.filter((j) => j.status === "Finished");
 
   return (
     <SidebarLayout>
@@ -43,23 +64,27 @@ const AdminJobRegistry = () => {
         <div className="w-full xl:w-2/3 h-full gap-3 sm:gap-5 flex flex-col">
           <div className="w-full h-full p-5 bg-white rounded-xl flex flex-col shadow-lg">
             <h1 className="text-xl sm:text-2xl font-bold">Job Registry</h1>
-            <div className="w-full h-[300px] flex items-center justify-center text-zinc-500">
-              {/* Static placeholder for DataTable */}
-              DataTable
-            </div>
+            <DataTable columns={columns} data={jobsData} loading={jobsLoading}/>
           </div>
 
-          <div className="w-full h-[320px] bg-white rounded-xl shadow-lg flex items-center justify-center">
-            Chart Placeholder (WaveChart)
-          </div>
+          {jobsLoading ? (
+            <Skeleton className="w-full h-[320px] shadow-lg" />
+          ) : (
+            <WaveChart chartDatas={chart1} />
+          )}
 
           <div className="flex md:flex-row flex-col gap-3 sm:gap-5">
-            <div className="md:w-1/2 w-full h-[400px] bg-white rounded-xl shadow-lg flex items-center justify-center">
-              PieChart
-            </div>
-            <div className="md:w-1/2 w-full h-[400px] bg-white rounded-xl shadow-lg flex items-center justify-center">
-              BarChart
-            </div>
+            {jobsLoading ? (
+              <>
+                <Skeleton className="md:w-1/2 w-full h-[400px] shadow-lg" />
+                <Skeleton className="md:w-1/2 w-full h-[400px] shadow-lg" />
+              </>
+            ) : (
+              <>
+                <PieCharts chartDatas={chart2} />
+                {/* <BarCharts data={severities}/> */}
+              </>
+            )}
           </div>
         </div>
 
@@ -83,7 +108,7 @@ const AdminJobRegistry = () => {
                     <h1 className="text-white font-semibold">Total</h1>
                   </div>
                   <h1 className="text-white font-bold text-3xl">
-                    {jobs.length}
+                    {jobsData.length || 0}
                   </h1>
                 </div>
               </div>
@@ -101,12 +126,18 @@ const AdminJobRegistry = () => {
             </div>
           </div>
 
-          {/* Recent clients */}
           <div className="w-full rounded-xl bg-white flex flex-col justify-end p-5 gap-5 shadow-lg max-h-[500px]">
-            <h1 className="text-base sm:text-xl font-semibold text-black mb-3">
-              Recent Clients
-            </h1>
-            {jobs.map((job) => (
+          <h1 className="text-base sm:text-xl font-semibold text-black mb-3">
+            Recent Clients
+          </h1>
+          {jobsLoading ? (
+            <>
+              <Skeleton className="w-full h-[50px]" />
+              <Skeleton className="w-full h-[50px]" />
+              <Skeleton className="w-full h-[50px]" />
+            </>
+          ) : (
+            recentJobs.map((job) => (
               <div key={job.id} className="flex justify-between relative">
                 <div
                   className={`h-full absolute w-1 ${
@@ -121,15 +152,15 @@ const AdminJobRegistry = () => {
                 />
                 <div
                   className={`absolute rounded-lg left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 h-[20px] max-w-[200px] w-full bg-opacity-30 
-                  ${
-                    job.status === "Waiting for Analysis"
-                      ? "bg-red-500"
-                      : job.status === "Being Analysed"
-                      ? "bg-orange-500"
-                      : job.status === "Being Reviewed"
-                      ? "bg-yellow-500"
-                      : "bg-green-500"
-                  }`}
+                ${
+                  job.status === "Waiting for Analysis"
+                    ? "bg-red-500"
+                    : job.status === "Being Analysed"
+                    ? "bg-orange-500"
+                    : job.status === "Being Reviewed"
+                    ? "bg-yellow-500"
+                    : "bg-green-500"
+                }`}
                 />
                 <div className="flex flex-col ml-3 z-10">
                   <h1 className="font-semibold">{job.user.name}</h1>
@@ -143,8 +174,9 @@ const AdminJobRegistry = () => {
                   })}
                 </h1>
               </div>
-            ))}
-          </div>
+            ))
+          )}
+        </div>
 
           {/* Recent routes */}
           <div className="bg-white h-2/3 w-full rounded-xl shadow-lg p-5">
