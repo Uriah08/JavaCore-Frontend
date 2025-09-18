@@ -5,6 +5,36 @@ export const loginSchema = z.object({
   password: z.string().min(5),
 });
 
+export const changePasswordSchema = z.object({
+  currentPassword: z.string().min(8, {
+    message: "Password must be 8 characters long",
+  }),
+  newPassword: z.string().min(8, {
+    message: "Password must be at least 8 characters long",
+  }),
+  confirmPassword: z.string().min(8, {
+    message: "Password must be at least 8 characters long",
+  }),
+});
+
+export const registerSchema = z.object({
+  username: z
+    .string()
+    .min(5, {
+      message: "Username must be at least 5 characters long",
+    })
+    .max(30, {
+      message: "Username must be at most 30 characters long",
+    }),
+  email: z.string().email().min(5).max(50),
+  password: z.string().min(8, {
+    message: "Password must be at least 8 characters long",
+  }),
+  confirmPassword: z.string().min(8, {
+    message: "Password must be at least 8 characters long",
+  }),
+});
+
 export const symbols = [
   {
     image: "N",
@@ -27,6 +57,18 @@ export const symbols = [
     label: "Missed Points",
   },
 ];
+
+export const routeComponentCommentSchema = z.object({
+  routeComponentId: z.string(),
+  severity: z.string().min(1, "Severity is required"),
+  comment: z.string().min(1, "Comment is required"),
+});
+
+export const routeComponentRecommendationSchema = z.object({
+  routeComponentId: z.string(),
+  priority: z.string().min(1, "Priority is required"),
+  recommendation: z.string().min(1, "Recommendation is required"),
+});
 
 export const jobSchema = z.object({
   client: z.string().min(1, { message: "Client is required" }),
@@ -52,3 +94,5 @@ export const jobSchema = z.object({
   ),
   yearWeekNo: z.string().min(1, { message: "Year week number is required" }),
 });
+
+

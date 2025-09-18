@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
 // import Details from "../dialogs/Details";
 import { toast } from "sonner";
+import Details from "../dialogs/analysis-dialogs/Details";
 
 interface SelectedJob {
   user?: {
@@ -25,11 +26,19 @@ interface EquipmentDetailsSectionProps {
 }
 
 const EquipmentDetails: React.FC<EquipmentDetailsSectionProps> = ({
-  //   isLoading,
+  isLoading,
   selectedComponent,
-  //   selectedJob,
+  selectedJob,
 }) => {
   const [openDetails, setOpenDetails] = React.useState(false);
+  
+  // Dummy component data if none selected
+  const dummyComponent = {
+    component: {
+      id: "RC-1001",
+      name: "Main Switchboard",
+    },
+  };
 
   const handleOpen = () => {
     if (!selectedComponent) {
@@ -54,14 +63,11 @@ const EquipmentDetails: React.FC<EquipmentDetailsSectionProps> = ({
           View Mechanical Details
         </Button>
         {openDetails && (
-          //   <Details
-          //     isLoading={isLoading}
-          //     selectedComponent={selectedComponent}
-          //     selectedJob={selectedJob}
-          //   />
-          <div className="p-4">
-            <p className="text-sm text-zinc-600">Comment dialog here...</p>
-          </div>
+          <Details
+            isLoading={isLoading}
+            selectedComponent={dummyComponent}
+            selectedJob={selectedJob}
+          />
         )}
       </Dialog>
     </div>

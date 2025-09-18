@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import { useAuthContext } from "@/context/AuthProvider"; // adjust path
+import { useAuthContext } from "@/context/AuthProvider"; 
 import SidebarLayout from "./SidebarLayout";
 
-// import ChangePassword from '@/components/container/form/ChangePassword'
-// import RegisterClient from '@/components/container/form/RegisterClient'
-// import VerifyClients from '@/components/container/authForm/VerifyClients'
+import ChangePassword from "@/components/container/admin/forms/manage-user-forms/ChangePassword";
+import RegisterClient from "@/components/container/admin/forms/manage-user-forms/RegisterClient";
+import VerifyClients from "@/components/container/admin/forms/manage-user-forms/VerifyClient";
 
 const AdminUsers = () => {
   const { authUser } = useAuthContext();
@@ -30,18 +30,18 @@ const AdminUsers = () => {
 
           <div className="rounded-xl bg-white flex flex-col p-5 shadow-lg">
             <h1 className="text-xl sm:text-2xl font-bold">Change password</h1>
-            {/* <ChangePassword /> */}
+            <ChangePassword />
           </div>
         </div>
 
         <div className="w-full xl:w-1/3 flex flex-col gap-3 sm:gap-5">
           <div className="rounded-xl bg-white p-5 shadow-lg h-fit flex flex-col w-full">
             <h1 className="text-xl sm:text-2xl font-bold">Register Client</h1>
-            {/* <RegisterClient /> */}
+            <RegisterClient />
           </div>
           <div className="rounded-xl bg-white p-5 shadow-lg h-fit flex flex-col w-full">
             <h1 className="text-xl sm:text-2xl font-bold">Verify Client</h1>
-            {/* <VerifyClients /> */}
+            <VerifyClients />
           </div>
         </div>
       </div>

@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
 import { symbols } from "@/schema";
 
+import Comment from "@/components/container/admin/dialogs/analysis-dialogs/Comment";
+
 // Dummy comments
 const dummyComments = [
   {
@@ -17,6 +19,9 @@ const dummyComments = [
     comment: "This was reported yesterday, moderate issue found.",
   },
 ];
+
+const dummyCOmponentId = "RC-1001";
+
 
 interface SelectedComponent {
   id: string;
@@ -150,9 +155,10 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({
             Write a comment...
           </Button>
           {openComment && (
-            <div className="p-4">
-              <p className="text-sm text-zinc-600">Comment dialog here...</p>
-            </div>
+            <Comment
+              routeComponentId={dummyCOmponentId}
+              onClose={() => setOpenComment(false)}
+            />
           )}
         </Dialog>
       </div>

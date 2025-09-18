@@ -25,18 +25,18 @@ import { Dialog } from "@/components/ui/dialog";
 //  Plus, Trash, View, ImageIcon, Search, from lucide react
 import { ImageIcon, PanelRight, Plus, Trash, View } from "lucide-react";
 import SidebarLayout from "./SidebarLayout";
-import SeverityHistory from "@/components/container/analysis/admin/SeverityHistory";
-import Comment from "@/components/container/analysis/admin/Comment";
-import Recommendation from "@/components/container/analysis/admin/Recommendation";
-import ClientAction from "@/components/container/analysis/admin/ClientAction";
-import AnalystNote from "@/components/container/analysis/admin/AnalystNote";
-import { EquipmentUpload } from "@/components/container/analysis/admin/EquipmentUpload";
-import { EquipmentView } from "@/components/container/analysis/admin/EquipmentView";
-import { FigureUpload } from "@/components/container/analysis/admin/FigureUpload";
-import { FigureView } from "@/components/container/analysis/admin/FigureView";
-import EquipmentDetails from "./EquipmentDetails";
-import Temperature from "@/components/container/analysis/admin/Temperature";
-import OilAnalysis from "@/components/container/analysis/admin/OilAnalysis";
+import SeverityHistory from "@/components/container/admin/analysis-sections/SeverityHistory";
+import Comment from "@/components/container/admin/analysis-sections/Comment";
+import Recommendation from "@/components/container/admin/analysis-sections/Recommendation";
+import ClientAction from "@/components/container/admin/analysis-sections/ClientAction";
+import AnalystNote from "@/components/container/admin/analysis-sections/AnalystNote";
+import { EquipmentUpload } from "@/components/container/admin/analysis-sections/EquipmentUpload";
+import { EquipmentView } from "@/components/container/admin/analysis-sections/EquipmentView";
+import { FigureUpload } from "@/components/container/admin/analysis-sections/FigureUpload";
+import { FigureView } from "@/components/container/admin/analysis-sections/FigureView";
+import EquipmentDetails from "../../container/admin/analysis-sections/EquipmentDetails";
+import Temperature from "@/components/container/admin/analysis-sections/Temperature";
+import OilAnalysis from "@/components/container/admin/analysis-sections/OilAnalysis";
 
 // dummy zod schema
 const analysisAndReportSchema = z.object({

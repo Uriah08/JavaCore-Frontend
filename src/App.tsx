@@ -16,8 +16,8 @@ import AdminCreateJob from "./components/pages/admin/AdminCreateJob";
 import AdminCreateRoute from "./components/pages/admin/AdminCreateRoute";
 import AdminAnalysisAndReport from "./components/pages/admin/AdminAnalysisAndReport";
 import AdminUsers from "./components/pages/admin/AdminUsers";
-// import AdminMachineList from "./components/pages/admin/AdminMachineList";
 import UserJobRegistry from "./components/pages/user/UserJobRegistry";
+import AdminMachineList from "./components/pages/admin/AdminMachineList";
 
 function App() {
   const { authUser } = useAuthContext();
@@ -88,7 +88,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        {/*
+        
         <Route
           path="/machine-list"
           element={
@@ -96,7 +96,7 @@ function App() {
               <AdminMachineList />
             </ProtectedRoute>
           }
-        /> */}
+        />
 
         {/* Catch-all */}
         <Route path="*" element={<Navigate to="/" replace />} />

@@ -2,6 +2,7 @@ import React from "react"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Button } from "@/components/ui/button"
 import { Dialog } from "@/components/ui/dialog"
+import Recommendation from "../dialogs/analysis-dialogs/Recommendation"
 
 // Dummy recommendations using P1–P6 scale
 const dummyRecommendations = [
@@ -47,6 +48,8 @@ interface RecommendationsSectionProps {
   selectedComponent: SelectedComponent | null
 }
 
+const dummyCOmponentId = "RC-1001";
+
 const RecommendationSection: React.FC<RecommendationsSectionProps> = ({
   isLoading,
   selectedComponent,
@@ -55,7 +58,7 @@ const RecommendationSection: React.FC<RecommendationsSectionProps> = ({
 
   const handleOpen = () => {
     if (!selectedComponent) {
-      alert("Select Component First!") // replaced toast
+      alert("Select Component First!") 
       return
     }
     setOpenRecommendation(true)
@@ -141,9 +144,10 @@ const RecommendationSection: React.FC<RecommendationsSectionProps> = ({
             Write a recommendation...
           </Button>
           {openRecommendation && (
-            <div className="p-4">
-              <p className="text-sm text-zinc-600">Recommendation dialog here...</p>
-            </div>
+            <Recommendation
+              routeComponentId={dummyCOmponentId}
+              onClose={() => setOpenRecommendation(false)}
+            />
           )}
         </Dialog>
       </div>
