@@ -8,6 +8,8 @@ import { toast } from "sonner";
 import { symbols } from "@/schema"; // using your schema
 // Removed next/image, using normal <img>
 
+import OilAnalysisDialog from "../dialogs/analysis-dialogs/OilAnalysisDialog";
+
 interface SelectedComponent {
   id: string;
   routeComponentID: string;
@@ -67,18 +69,11 @@ const OilAnalysis: React.FC<OilAnalysisSectionProps> = ({
           </Button>
 
           {openOilAnalysis && (
-            <div className="p-4 border rounded-lg bg-white shadow-md">
-              <h2 className="font-semibold text-zinc-800">Add Oil State</h2>
-              <p className="text-sm text-zinc-600 mt-2">
-                Dummy dialog content here.
-              </p>
-              <Button
-                onClick={() => setOpenOilAnalysis(false)}
-                className="mt-4"
-              >
-                Close
-              </Button>
-            </div>
+             <OilAnalysisDialog
+              defaultOilAnalysis="Select Oil State"
+              routeComponentId={selectedComponent?.routeComponentID}
+              onClose={() => setOpenOilAnalysis(false)}
+            />
           )}
         </Dialog>
       </div>

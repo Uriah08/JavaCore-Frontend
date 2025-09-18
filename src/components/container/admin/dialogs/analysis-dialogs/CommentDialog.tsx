@@ -13,7 +13,7 @@ import { toast } from "sonner";
 import { symbols, routeComponentCommentSchema } from "@/schema";
 import { ZodError } from "zod";
 
-interface CommentsProps {
+interface CommentsDialogProps {
   routeComponentId: string | undefined;
   onClose: () => void;
 }
@@ -29,7 +29,7 @@ const mockCreateComment = async (payload: {
   });
 };
 
-const Comments: React.FC<CommentsProps> = ({ routeComponentId, onClose }) => {
+const CommentsDialog: React.FC<CommentsDialogProps> = ({ routeComponentId, onClose }) => {
   const [comment, setComment] = useState<string>("");
   const [severity, setSeverity] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -119,4 +119,4 @@ const Comments: React.FC<CommentsProps> = ({ routeComponentId, onClose }) => {
   );
 };
 
-export default Comments;
+export default CommentsDialog;

@@ -5,10 +5,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
 import { toast } from "sonner";
+import Temperature from "../dialogs/analysis-dialogs/Temperature"; 
 
 interface SelectedComponent {
   id: string;
-  routeComponentID: string;
+  routeComponentID: string | null;
 }
 
 interface TemperatureSectionProps {
@@ -16,7 +17,7 @@ interface TemperatureSectionProps {
   selectedComponent: SelectedComponent | null;
 }
 
-const Temperature: React.FC<TemperatureSectionProps> = ({
+const TemperatureSection: React.FC<TemperatureSectionProps> = ({
   isLoading,
   selectedComponent,
 }) => {
@@ -63,18 +64,12 @@ const Temperature: React.FC<TemperatureSectionProps> = ({
           </Button>
 
           {openTemperature && (
-            <div className="p-4 border rounded-lg bg-white shadow-md">
-              <h2 className="font-semibold text-zinc-800">Add Temperature</h2>
-              <p className="text-sm text-zinc-600 mt-2">
-                Dummy dialog content here.
-              </p>
-              <Button
-                onClick={() => setOpenTemperature(false)}
-                className="mt-4"
-              >
-                Close
-              </Button>
-            </div>
+            <Temperature
+              routeComponentId={
+                selectedComponent?.routeComponentID ?? "RC-1001"
+              }
+              onClose={() => setOpenTemperature(false)}
+            />
           )}
         </Dialog>
       </div>
@@ -107,4 +102,4 @@ const Temperature: React.FC<TemperatureSectionProps> = ({
   );
 };
 
-export default Temperature;
+export default TemperatureSection;

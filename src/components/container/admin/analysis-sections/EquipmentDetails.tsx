@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
 // import Details from "../dialogs/Details";
 import { toast } from "sonner";
-import Details from "../dialogs/analysis-dialogs/Details";
+import DetailsDialog from "../dialogs/analysis-dialogs/DetailsDialog";
 
 interface SelectedJob {
   user?: {
@@ -31,7 +31,7 @@ const EquipmentDetails: React.FC<EquipmentDetailsSectionProps> = ({
   selectedJob,
 }) => {
   const [openDetails, setOpenDetails] = React.useState(false);
-  
+
   // Dummy component data if none selected
   const dummyComponent = {
     component: {
@@ -63,7 +63,7 @@ const EquipmentDetails: React.FC<EquipmentDetailsSectionProps> = ({
           View Mechanical Details
         </Button>
         {openDetails && (
-          <Details
+          <DetailsDialog
             isLoading={isLoading}
             selectedComponent={dummyComponent}
             selectedJob={selectedJob}

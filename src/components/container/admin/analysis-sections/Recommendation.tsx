@@ -2,7 +2,7 @@ import React from "react"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Button } from "@/components/ui/button"
 import { Dialog } from "@/components/ui/dialog"
-import Recommendation from "../dialogs/analysis-dialogs/Recommendation"
+import RecommendationDialog from "../dialogs/analysis-dialogs/RecommendationDialog"
 
 // Dummy recommendations using P1–P6 scale
 const dummyRecommendations = [
@@ -144,7 +144,7 @@ const RecommendationSection: React.FC<RecommendationsSectionProps> = ({
             Write a recommendation...
           </Button>
           {openRecommendation && (
-            <Recommendation
+            <RecommendationDialog
               routeComponentId={dummyCOmponentId}
               onClose={() => setOpenRecommendation(false)}
             />

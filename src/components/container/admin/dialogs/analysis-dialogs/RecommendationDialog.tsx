@@ -14,12 +14,12 @@ import { toast } from "sonner";
 import { routeComponentRecommendationSchema } from "@/schema";
 import { z } from "zod";
 
-interface RecommendationProps {
+interface RecommendationDialogProps {
   routeComponentId: string | undefined;
   onClose: () => void;
 }
 
-const Recommendation: React.FC<RecommendationProps> = ({
+const RecommendationDialog: React.FC<RecommendationDialogProps> = ({
   routeComponentId,
   onClose,
 }) => {
@@ -138,4 +138,4 @@ const Recommendation: React.FC<RecommendationProps> = ({
   );
 };
 
-export default Recommendation;
+export default RecommendationDialog;

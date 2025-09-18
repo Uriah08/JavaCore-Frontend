@@ -70,6 +70,20 @@ export const routeComponentRecommendationSchema = z.object({
   recommendation: z.string().min(1, "Recommendation is required"),
 });
 
+export const routeComponentTemperatureSchema = z.object({
+  routeComponentId: z.string(),
+  temperature: z
+    .number()
+    .min(-100, { message: "Temperature cannot be below -100°C" })
+    .max(1000, { message: "Temperature cannot exceed 1000°C" }),
+});
+
+export const routeComponentOilAnalysisSchema = z.object({
+  routeComponentId: z.string(),
+  analysis: z.enum(["Normal", "Moderate", "Severe", "Critical", "Missed Points"])
+    .describe("Choose a valid oil state!"),
+});
+
 export const jobSchema = z.object({
   client: z.string().min(1, { message: "Client is required" }),
   area: z.string().min(1, { message: "Area is required" }),

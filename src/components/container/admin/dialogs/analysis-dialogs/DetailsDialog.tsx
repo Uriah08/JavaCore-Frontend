@@ -32,7 +32,7 @@ interface ComponentDetail {
   value: string;
 }
 
-const Details: React.FC<DetailsDialogProps> = ({
+const DetailsDialog: React.FC<DetailsDialogProps> = ({
   isLoading,
   selectedComponent,
   selectedJob,
@@ -99,4 +99,4 @@ const Details: React.FC<DetailsDialogProps> = ({
   );
 };
 
-export default Details;
+export default DetailsDialog;

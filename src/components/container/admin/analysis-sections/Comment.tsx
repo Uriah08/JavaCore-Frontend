@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
 import { symbols } from "@/schema";
 
-import Comment from "@/components/container/admin/dialogs/analysis-dialogs/Comment";
+import CommentsDialog from "@/components/container/admin/dialogs/analysis-dialogs/CommentDialog";
 
 // Dummy comments
 const dummyComments = [
@@ -155,7 +155,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({
             Write a comment...
           </Button>
           {openComment && (
-            <Comment
+            <CommentsDialog
               routeComponentId={dummyCOmponentId}
               onClose={() => setOpenComment(false)}
             />
