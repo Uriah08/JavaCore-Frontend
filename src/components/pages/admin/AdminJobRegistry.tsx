@@ -24,31 +24,6 @@ const AdminJobRegistry = () => {
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     )
     .slice(0, 3);
-  
-  // dummy data muna
-  // const jobs = [
-  //   {
-  //     id: 1,
-  //     user: { name: "Bornok" },
-  //     jobDescription: "Pump inspection",
-  //     status: "Waiting for Analysis",
-  //     createdAt: "2025-09-10",
-  //   },
-  //   {
-  //     id: 2,
-  //     user: { name: "kengkoy" },
-  //     jobDescription: "Gearbox test",
-  //     status: "Being Analysed",
-  //     createdAt: "2025-09-14",
-  //   },
-  //   {
-  //     id: 3,
-  //     user: { name: "joburat" },
-  //     jobDescription: "Vibration check",
-  //     status: "Finished",
-  //     createdAt: "2025-09-15",
-  //   },
-  // ];
 
   const routes = [
     { id: 1, routeName: "Route A" },

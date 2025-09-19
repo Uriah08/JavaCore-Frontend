@@ -24,6 +24,7 @@ import Analyst from "../../dialogs/Analyst";
 import { useState } from "react";
 import Status from "../../dialogs/Status";
 import Reviewer from "../../dialogs/Reviewer";
+import { toast } from "sonner";
 // import React from "react";
 // import Reviewer from "../../dialogs/Reviewer";
 // import Status from "../../dialogs/Status";
@@ -327,7 +328,7 @@ export const useColumns = () => {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuItem
-                  onClick={() => navigator.clipboard.writeText(job.jobNumber)}
+                  onClick={() => {navigator.clipboard.writeText(job.jobNumber); toast("Job Number Copied!")}}
                 >
                   Copy Job Number
                 </DropdownMenuItem>

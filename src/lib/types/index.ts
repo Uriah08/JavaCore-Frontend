@@ -50,3 +50,13 @@ export type SeveritiesResponse = {
     count: number;
   }[];
 };
+
+export type GetUserResponse = {
+  user: {
+    name: string;
+    email: string;
+    role: "admin" | "user" | "manager";
+  };
+  message: string;
+  success: boolean;
+};
