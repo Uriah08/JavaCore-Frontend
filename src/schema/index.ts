@@ -80,17 +80,19 @@ export const routeComponentTemperatureSchema = z.object({
 
 export const routeComponentOilAnalysisSchema = z.object({
   routeComponentId: z.string(),
-  analysis: z.enum(["Normal", "Moderate", "Severe", "Critical", "Missed Points"])
+  analysis: z
+    .enum(["Normal", "Moderate", "Severe", "Critical", "Missed Points"])
     .describe("Choose a valid oil state!"),
 });
 
 export const jobSchema = z.object({
   client: z.string().min(1, { message: "Client is required" }),
   area: z.string().min(1, { message: "Area is required" }),
-  dateSurveyed: z.preprocess(
-    (arg) => (arg ? new Date(arg as string) : undefined),
-    z.instanceof(Date, { message: "A date surveyed is required." })
-  ),
+  dateSurveyed: z
+    .date()
+    .refine((val) => val instanceof Date && !isNaN(val.getTime()), {
+      message: "A date surveyed is required.",
+    }),
   jobNo: z.string().min(1, { message: "Job number is required" }),
   poNo: z.string().min(1, { message: "PO number is required" }),
   woNo: z.string().min(1, { message: "WO number is required" }),
@@ -102,11 +104,10 @@ export const jobSchema = z.object({
     .string()
     .min(1, { message: "Inspection route is required" }),
   equipmentUse: z.string().min(1, { message: "Equipment use is required" }),
-  dateRegistered: z.preprocess(
-    (arg) => (arg ? new Date(arg as string) : undefined),
-    z.instanceof(Date, { message: "A date of register is required." })
-  ),
+  dateRegistered: z
+    .date()
+    .refine((val) => val instanceof Date && !isNaN(val.getTime()), {
+      message: "A date of register is required.",
+    }),
   yearWeekNo: z.string().min(1, { message: "Year week number is required" }),
 });
-
-

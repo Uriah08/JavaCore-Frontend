@@ -61,6 +61,15 @@ export type GetUserResponse = {
   success: boolean;
 };
 
+export type Client = {
+  id: string;
+  name: string;
+};
+
+export type GetAllClientsResponse = {
+  users: Client[];
+};
+
 export type Area = {
   id: string;
   name: string;
