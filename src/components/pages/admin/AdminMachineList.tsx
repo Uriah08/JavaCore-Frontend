@@ -1,18 +1,13 @@
 "use client";
 
-import React from "react";
 import List from "@/components/container/list/machine-list/List";
 import { Route } from "lucide-react";
 import SidebarLayout from "./SidebarLayout";
 
+import { useGetMachinesCountQuery } from "@/store/machine-list/machine-list-count-api";
+
 const AdminMachineList = () => {
-  // dummy data
-  const machines = {
-    areas: 12,
-    equipmentGroup: 8,
-    equipmentName: 25,
-    components: 40,
-  };
+  const { data: machines } = useGetMachinesCountQuery();
 
   const routes = [
     { id: 1, routeName: "Main Plant Inspection" },
@@ -38,7 +33,7 @@ const AdminMachineList = () => {
               <div className="flex flex-col gap-3 bg-main p-3 rounded-lg">
                 <h1 className="text-lg font-semibold text-white">Areas</h1>
                 <h1 className="text-4xl font-bold text-white">
-                  {machines.areas}
+                  {machines?.areas || 0}
                 </h1>
               </div>
               <div className="flex flex-col gap-3 bg-main p-3 rounded-lg">
@@ -46,19 +41,19 @@ const AdminMachineList = () => {
                   Equipment Group
                 </h1>
                 <h1 className="text-4xl font-bold text-white">
-                  {machines.equipmentGroup}
+                  {machines?.equipmentGroup || 0}
                 </h1>
               </div>
               <div className="flex flex-col gap-3 bg-main p-3 rounded-lg">
                 <h1 className="text-lg font-semibold text-white">Equipments</h1>
                 <h1 className="text-4xl font-bold text-white">
-                  {machines.equipmentName}
+                  {machines?.equipmentName || 0}
                 </h1>
               </div>
               <div className="flex flex-col gap-3 bg-main p-3 rounded-lg">
                 <h1 className="text-lg font-semibold text-white">Components</h1>
                 <h1 className="text-4xl font-bold text-white">
-                  {machines.components}
+                  {machines?.components || 0}
                 </h1>
               </div>
             </div>

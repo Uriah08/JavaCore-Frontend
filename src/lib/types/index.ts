@@ -70,6 +70,13 @@ export type GetAllClientsResponse = {
   users: Client[];
 };
 
+export type MachinesCountResponse = {
+  areas: number;
+  equipmentGroup: number;
+  equipmentName: number;
+  components: number;
+};
+
 export type Area = {
   id: string;
   name: string;

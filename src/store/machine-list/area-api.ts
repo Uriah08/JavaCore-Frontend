@@ -1,23 +1,16 @@
 import type { AreaResponse } from "@/lib/types";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { baseApi } from "./baseApi";
 
-export const areaApi = createApi({
-  reducerPath: "areaApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000/api/machine-list/area", 
-    credentials: "include",
-  }),
-  tagTypes: ["Areas"],
+export const areaApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // GET all areas
     getAreas: builder.query<AreaResponse, void>({
-      query: () => "/get",
+      query: () => "/machine-list/area/get",
       providesTags: ["Areas"],
     }),
 
     // GET single area by id
     getAreaById: builder.query({
-      query: (id: string) => `get/${id}`,
+      query: (id: string) => `/machine-list/area/get/${id}`,
       providesTags: ["Areas"],
     }),
 
@@ -34,7 +27,7 @@ export const areaApi = createApi({
     // UPDATE
     updateArea: builder.mutation({
       query: (data) => ({
-        url: "/update",
+        url: "/machine-list/area//update",
         method: "PATCH",
         body: data,
       }),
@@ -44,7 +37,7 @@ export const areaApi = createApi({
     // DELETE
     deleteArea: builder.mutation({
       query: (ids: string[]) => ({
-        url: "/delete",
+        url: "/machine-list/area//delete",
         method: "DELETE",
         body: ids,
         headers: { "Content-Type": "application/json" },
