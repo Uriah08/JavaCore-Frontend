@@ -31,42 +31,59 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 
 import { cn } from "@/lib/utils";
-import { useCreateJobMutation } from "@/store/job-api";
 import { jobSchema } from "@/schema";
 import { toast } from "sonner";
 
+import { useCreateJobMutation } from "@/store/job-api";
+import { useGetAreasQuery } from "@/store/machine-list/area-api";
+import { useGetAllClientsQuery } from "@/store/user-api";
+
 const CreateJobForm: React.FC = () => {
-  const form = useForm<z.infer<typeof jobSchema>>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: zodResolver(jobSchema) as any,
+  type JobFormValues = z.infer<typeof jobSchema>;
+
+  const form = useForm<JobFormValues>({
+    resolver: zodResolver(jobSchema),
     defaultValues: {
-      client: "cmfmcd1e10000jok00jggjmcr",
-      area: "Area 1",
-      dateSurveyed: new Date("2025-09-17"),
-      jobNo: "JOB-123",
-      poNo: "PO-456",
-      woNo: "WO-789",
-      reportNo: "REP-001",
-      jobDescription: "This is a test job description.",
-      method: "Method 1",
-      inspector: "Inspector 1",
-      inspectionRoute: "route1",
-      equipmentUse: "equipment1",
-      dateRegistered: new Date("2025-09-17"),
-      yearWeekNo: "2025-38",
+      client: "",
+      area: "",
+      dateSurveyed: new Date(),
+      jobNo: "",
+      poNo: "",
+      woNo: "",
+      reportNo: "",
+      jobDescription: "",
+      method: "",
+      inspector: "",
+      inspectionRoute: "",
+      equipmentUse: "",
+      dateRegistered: new Date(),
+      yearWeekNo: "",
     },
-    mode: "onBlur",
-    shouldUnregister: true,
   });
 
   const [createJob] = useCreateJobMutation();
 
-  async function onSubmit(values: z.infer<typeof jobSchema>) {
-    console.log("Form submitted:", values);
+  const { data, isLoading } = useGetAreasQuery();
+  const areas = data?.areas ?? [];
 
+  const { data: clients, isLoading: isClientsLoading } =
+    useGetAllClientsQuery();
+
+  async function onSubmit(values: z.infer<typeof jobSchema>) {
     try {
-      const response = await createJob(values).unwrap();
+      const formattedValues = {
+        ...values,
+        dateSurveyed: new Date(values.dateSurveyed),
+        dateRegistered: new Date(values.dateRegistered),
+      };
+
+      const response = await createJob(formattedValues).unwrap();
+
+      if (!response.success) {
+        throw new Error(response.message);
+      }
       toast(response.message);
+      form.reset();
     } catch (error) {
       const apiError = error as { data?: { error?: string } };
       const errorMsg = apiError?.data?.error ?? "An unexpected error occurred";
@@ -95,9 +112,17 @@ const CreateJobForm: React.FC = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="1">Client A</SelectItem>
-                    <SelectItem value="2">Client B</SelectItem>
-                    <SelectItem value="3">Client C</SelectItem>
+                    {isClientsLoading ? (
+                      <SelectItem disabled value="loading">
+                        Loading...
+                      </SelectItem>
+                    ) : (
+                      clients?.users.map((client) => (
+                        <SelectItem key={client.id} value={client.id}>
+                          {client.name}
+                        </SelectItem>
+                      ))
+                    )}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -117,9 +142,17 @@ const CreateJobForm: React.FC = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="Area 1">Area 1</SelectItem>
-                    <SelectItem value="Area 2">Area 2</SelectItem>
-                    <SelectItem value="Area 3">Area 3</SelectItem>
+                    {isLoading ? (
+                      <SelectItem disabled value="loading">
+                        Loading...
+                      </SelectItem>
+                    ) : (
+                      areas.map((area) => (
+                        <SelectItem key={area.id} value={area.name}>
+                          {area.name}
+                        </SelectItem>
+                      ))
+                    )}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -317,7 +350,12 @@ const CreateJobForm: React.FC = () => {
             render={({ field }) => (
               <FormItem className="w-full md:w-1/2">
                 <FormLabel>Inspection Route</FormLabel>
-                <Select onValueChange={field.onChange} value={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  value={field.value || ""}
+                  disabled={!form.watch("client")}
+                >
                   <FormControl className="w-full">
                     <SelectTrigger>
                       <SelectValue placeholder="Select a route" />

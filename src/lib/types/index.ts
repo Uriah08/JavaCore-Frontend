@@ -61,3 +61,31 @@ export type GetUserResponse = {
   message: string;
   success: boolean;
 };
+
+export type Client = {
+  id: string;
+  name: string;
+};
+
+export type GetAllClientsResponse = {
+  users: Client[];
+};
+
+export type MachinesCountResponse = {
+  areas: number;
+  equipmentGroup: number;
+  equipmentName: number;
+  components: number;
+};
+
+export type Area = {
+  id: string;
+  name: string;
+  isDelete: boolean;
+};
+
+export type AreaResponse = {
+  areas: Area[];
+  message: string;
+  success: boolean;
+};

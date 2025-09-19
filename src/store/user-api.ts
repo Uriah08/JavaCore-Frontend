@@ -1,13 +1,14 @@
-import type { GetUserResponse } from "@/lib/types";
+import type { GetAllClientsResponse, GetUserResponse } from "@/lib/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const userApi = createApi({
-    reducerPath: "userApi",
-    baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:8000/api/user/',
-        credentials: "include"
-    }),
-    tagTypes: ['User'],
+  reducerPath: "userApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:8000/api/user/",
+    credentials: "include",
+  }),
+  tagTypes: ["Users"],
+   tagTypes: ['User'],
     endpoints: (build) => ({
         createUser: build.mutation({
             query: (data) => ({
@@ -29,12 +30,17 @@ export const userApi = createApi({
                 method: "POST",
                 body: data
             })
-        })
-    })
-})
+        }),
+    getAllClients: build.query<GetAllClientsResponse, void>({
+      query: () => "/get", 
+      providesTags: ["Users"],
+    }),
+  }),
+});
 
 export const { 
-    useGetMeQuery,
-    useCreateUserMutation,
-    useChangePasswordMutation
+  useGetMeQuery, 
+  useGetAllClientsQuery, 
+  useCreateUserMutation, 
+  useChangePasswordMutation 
 } = userApi;
