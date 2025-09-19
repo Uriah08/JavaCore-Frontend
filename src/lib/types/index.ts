@@ -1,29 +1,28 @@
 export interface Job {
-  id: string;       
-  no: number;               
-  status: string;                
-  userId: string;             
+  id: string;
+  no: number;
+  status: string;
+  userId: string;
   area: string;
   dateSurveyed: Date;
-  jobNumber: string;           
-  poNumber?: string | null;     
-  woNumber?: string | null;       
-  reportNumber?: string | null;   
+  jobNumber: string;
+  poNumber?: string | null;
+  woNumber?: string | null;
+  reportNumber?: string | null;
   jobDescription: string;
   method: string;
   inspector: string;
-  analyst?: string | null;      
-  reviewer?: string | null;       
-  dateFinished?: Date | null;   
+  analyst?: string | null;
+  reviewer?: string | null;
+  dateFinished?: Date | null;
   inspectionRoute: string;
   equipmentUse: string;
-  dateRegistered: Date;      
+  dateRegistered: Date;
   yearWeekNumber: string;
   reportIntroduction?: string | null;
-  createdAt: Date;              
+  createdAt: Date;
   updatedAt: Date;
 }
-
 
 export type ExtendedJob = Job & {
   user: {
@@ -88,3 +87,35 @@ export type AreaResponse = {
   message: string;
   success: boolean;
 };
+
+export type EquipmentGroup = {
+  id: string;
+  name: string;
+  areaId: string;
+  isDelete: boolean;
+};
+
+export type EquipmentGroupResponse = { equipmentGroups: EquipmentGroup[] };
+
+export type EquipmentName = {
+  id: string;
+  name: string;
+  groupId: string;
+  isDelete: boolean;
+};
+
+export type EquipmentNameResponse = {
+  equipmentNames: EquipmentName[];
+};
+
+export type Component = {
+  id: string;
+  name: string;
+  equipmentNameId: string;
+  isDelete: boolean;
+};
+
+export type ComponentResponse = {
+  components: Component[];
+};
+

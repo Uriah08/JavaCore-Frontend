@@ -2,7 +2,9 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import globalReducer from "@/store/index";
 import { authApi } from "@/store/auth-api";
 import { jobApi } from "@/store/job-api";
-import { areaApi } from "@/store/machine-list/area-api";
+
+import {machineListApi} from "@/store/machine-list/baseApi"
+
 import {
   persistReducer,
   FLUSH,
@@ -33,7 +35,8 @@ const rootReducer = combineReducers({
   [userApi.reducerPath]: userApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [jobApi.reducerPath]: jobApi.reducer,
-  [areaApi.reducerPath]: areaApi.reducer,
+  [machineListApi.reducerPath]: machineListApi.reducer,
+
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -50,7 +53,7 @@ export const makeStore = () =>
         .concat(userApi.middleware)
         .concat(authApi.middleware)
         .concat(jobApi.middleware)
-        .concat(areaApi.middleware),
+        .concat(machineListApi.middleware)
   });
 
 export type AppStore = ReturnType<typeof makeStore>;

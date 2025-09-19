@@ -1,7 +1,7 @@
 import type { AreaResponse } from "@/lib/types";
-import { baseApi } from "./baseApi";
+import { machineListApi } from "./baseApi";
 
-export const areaApi = baseApi.injectEndpoints({
+export const areaApi = machineListApi.injectEndpoints({
   endpoints: (builder) => ({
     getAreas: builder.query<AreaResponse, void>({
       query: () => "/machine-list/area/get",
@@ -27,7 +27,7 @@ export const areaApi = baseApi.injectEndpoints({
     // UPDATE
     updateArea: builder.mutation({
       query: (data) => ({
-        url: "/machine-list/area//update",
+        url: "/machine-list/area/update",
         method: "PATCH",
         body: data,
       }),
@@ -35,9 +35,9 @@ export const areaApi = baseApi.injectEndpoints({
     }),
 
     // DELETE
-    deleteArea: builder.mutation({
+    softDeleteArea: builder.mutation({
       query: (ids: string[]) => ({
-        url: "/machine-list/area//delete",
+        url: "/machine-list/area/delete",
         method: "DELETE",
         body: ids,
         headers: { "Content-Type": "application/json" },
@@ -52,5 +52,5 @@ export const {
   useGetAreaByIdQuery,
   useCreateAreaMutation,
   useUpdateAreaMutation,
-  useDeleteAreaMutation,
+  useSoftDeleteAreaMutation,
 } = areaApi;

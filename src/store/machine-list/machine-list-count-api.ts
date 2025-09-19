@@ -1,7 +1,7 @@
-import { baseApi } from "./baseApi";
+import { machineListApi } from "./baseApi";
 import type { MachinesCountResponse } from "@/lib/types";
 
-export const machineCountApi = baseApi.injectEndpoints({
+export const machineCountApi = machineListApi.injectEndpoints({
   endpoints: (builder) => ({
     getMachinesCount: builder.query<MachinesCountResponse, void>({
       query: () => "/machine-list/machine-list-count/counts",
