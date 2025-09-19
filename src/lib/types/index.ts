@@ -50,3 +50,15 @@ export type SeveritiesResponse = {
     count: number;
   }[];
 };
+
+export type Area = {
+  id: string;
+  name: string;
+  isDelete: boolean;
+};
+
+export type AreaResponse = {
+  areas: Area[];
+  message: string;
+  success: boolean;
+};

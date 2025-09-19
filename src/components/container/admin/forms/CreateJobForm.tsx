@@ -31,9 +31,11 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 
 import { cn } from "@/lib/utils";
-import { useCreateJobMutation } from "@/store/job-api";
 import { jobSchema } from "@/schema";
 import { toast } from "sonner";
+
+import { useCreateJobMutation } from "@/store/job-api";
+import { useGetAreasQuery } from "@/store/machine-list/area-api";
 
 const CreateJobForm: React.FC = () => {
   const form = useForm<z.infer<typeof jobSchema>>({
@@ -41,7 +43,7 @@ const CreateJobForm: React.FC = () => {
     resolver: zodResolver(jobSchema) as any,
     defaultValues: {
       client: "cmfmcd1e10000jok00jggjmcr",
-      area: "Area 1",
+      area: "",
       dateSurveyed: new Date("2025-09-17"),
       jobNo: "JOB-123",
       poNo: "PO-456",
@@ -60,6 +62,8 @@ const CreateJobForm: React.FC = () => {
   });
 
   const [createJob] = useCreateJobMutation();
+  const { data, isLoading } = useGetAreasQuery();
+  const areas = data?.areas ?? [];
 
   async function onSubmit(values: z.infer<typeof jobSchema>) {
     console.log("Form submitted:", values);
@@ -117,9 +121,17 @@ const CreateJobForm: React.FC = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="Area 1">Area 1</SelectItem>
-                    <SelectItem value="Area 2">Area 2</SelectItem>
-                    <SelectItem value="Area 3">Area 3</SelectItem>
+                    {isLoading ? (
+                      <SelectItem disabled value="loading">
+                        Loading...
+                      </SelectItem>
+                    ) : (
+                      areas.map((area) => (
+                        <SelectItem key={area.id} value={area.name}>
+                          {area.name}
+                        </SelectItem>
+                      ))
+                    )}
                   </SelectContent>
                 </Select>
                 <FormMessage />
