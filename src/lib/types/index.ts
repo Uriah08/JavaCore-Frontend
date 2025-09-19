@@ -51,6 +51,16 @@ export type SeveritiesResponse = {
   }[];
 };
 
+export type GetUserResponse = {
+  user: {
+    name: string;
+    email: string;
+    role: "admin" | "user" | "manager";
+  };
+  message: string;
+  success: boolean;
+};
+
 export type Area = {
   id: string;
   name: string;
