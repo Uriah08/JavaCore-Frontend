@@ -7,17 +7,34 @@ export const userApi = createApi({
         baseUrl: 'http://localhost:8000/api/user/',
         credentials: "include"
     }),
-    tagTypes: [],
+    tagTypes: ['User'],
     endpoints: (build) => ({
+        createUser: build.mutation({
+            query: (data) => ({
+                url: 'register/',
+                method: "POST",
+                body: data,
+            })
+        }),
         getMe: build.query<GetUserResponse, void>({
             query: () => ({
                 url: 'me/',
                 method: "GET"
+            }),
+            providesTags: ['User']
+        }),
+        changePassword: build.mutation({
+            query: (data) => ({
+                url: 'change-password/',
+                method: "POST",
+                body: data
             })
         })
     })
 })
 
 export const { 
-    useGetMeQuery
+    useGetMeQuery,
+    useCreateUserMutation,
+    useChangePasswordMutation
 } = userApi;
