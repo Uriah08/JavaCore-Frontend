@@ -55,6 +55,7 @@ export type GetUserResponse = {
     name: string;
     email: string;
     role: "admin" | "user" | "manager";
+    emailVerified: Date | null;
   };
   message: string;
   success: boolean;

@@ -5,9 +5,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { changePasswordSchema } from "@/schema";
+import { Button } from "@/components/ui/button";
+import { useChangePasswordMutation } from "@/store/user-api";
+import { toast } from "sonner";
 
 const ChangePassword: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [changePassword, {isLoading}] = useChangePasswordMutation();
 
   const form = useForm<z.infer<typeof changePasswordSchema>>({
     resolver: zodResolver(changePasswordSchema),
@@ -18,9 +22,16 @@ const ChangePassword: React.FC = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof changePasswordSchema>) => {
-    console.log("Form submitted:", values);
-    form.reset();
+  const onSubmit = async (values: z.infer<typeof changePasswordSchema>) => {
+    try {
+      const response = await changePassword(values).unwrap();
+      toast(response.message);
+      form.reset();
+    } catch (error) {
+      const apiError = error as { data?: { error?: string } };
+      const errorMsg = apiError?.data?.error ?? "An unexpected error occurred";
+      toast.error(errorMsg);
+    }
   };
 
   return (
@@ -122,12 +133,13 @@ const ChangePassword: React.FC = () => {
           )}
         </div>
 
-        <button
+        <Button
+          disabled={isLoading}
           type="submit"
-          className="bg-main hover:bg-follow duration-200 transition-all text-white px-4 py-2 rounded-lg w-fit"
+          className="bg-main hover:bg-follow duration-200 transition-all text-white w-fit cursor-pointer"
         >
-          Change Password
-        </button>
+          {isLoading ? "Changing..." : "Change Password"}
+        </Button>
       </form>
     </div>
   );

@@ -43,6 +43,13 @@ export const jobApi = createApi({
       }),
       invalidatesTags: ["Jobs"],
     }),
+    userJob: builder.query<JobsResponse, void>({
+      query: () => ({
+        url: "/user-job",
+        method: "GET",
+      }),
+      providesTags: ["Jobs"],
+    })
   }),
 });
 
@@ -51,5 +58,6 @@ export const {
   useGetJobsQuery,
   useGetJobByIdQuery,
   useDeleteJobsMutation,
-  useUpdateJobMutation
+  useUpdateJobMutation,
+  useUserJobQuery
 } = jobApi;

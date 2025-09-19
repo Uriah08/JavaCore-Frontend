@@ -39,3 +39,21 @@ export const adminSidebar = [
     link: "/machine-list",
   },
 ];
+
+export const userSidebar = [
+  {
+    title: "Job Registry",
+    icon: BriefcaseBusiness,
+    link: "/job-registry",
+  },
+  {
+    title: "Analysis/Report",
+    icon: ChartArea,
+    link: "/analysis-report",
+  },
+  {
+    title: "Database",
+    icon: Database,
+    link: "/machine-list",
+  },
+];

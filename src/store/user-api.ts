@@ -8,13 +8,29 @@ export const userApi = createApi({
     credentials: "include",
   }),
   tagTypes: ["Users"],
-  endpoints: (build) => ({
-    getMe: build.query<GetUserResponse, void>({
-      query: () => ({
-        url: "me/",
-        method: "GET",
-      }),
-    }),
+   tagTypes: ['User'],
+    endpoints: (build) => ({
+        createUser: build.mutation({
+            query: (data) => ({
+                url: 'register/',
+                method: "POST",
+                body: data,
+            })
+        }),
+        getMe: build.query<GetUserResponse, void>({
+            query: () => ({
+                url: 'me/',
+                method: "GET"
+            }),
+            providesTags: ['User']
+        }),
+        changePassword: build.mutation({
+            query: (data) => ({
+                url: 'change-password/',
+                method: "POST",
+                body: data
+            })
+        }),
     getAllClients: build.query<GetAllClientsResponse, void>({
       query: () => "/get", 
       providesTags: ["Users"],
@@ -22,4 +38,9 @@ export const userApi = createApi({
   }),
 });
 
-export const { useGetMeQuery, useGetAllClientsQuery } = userApi;
+export const { 
+  useGetMeQuery, 
+  useGetAllClientsQuery, 
+  useCreateUserMutation, 
+  useChangePasswordMutation 
+} = userApi;
