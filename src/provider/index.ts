@@ -1,8 +1,8 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import globalReducer from '@/store/index'
-import { authApi } from '@/store/auth-api';
-import { jobApi } from '@/store/job-api';
-import { areaApi } from '@/store/machine-list/area-api';
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import globalReducer from "@/store/index";
+import { authApi } from "@/store/auth-api";
+import { jobApi } from "@/store/job-api";
+import { areaApi } from "@/store/machine-list/area-api";
 import {
   persistReducer,
   FLUSH,
@@ -11,10 +11,8 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist';
-import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
-import { userApi } from '@/store/user-api';
 } from "redux-persist";
+import { userApi } from "@/store/user-api";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 
 const createNoopStorage = () => ({
@@ -45,13 +43,11 @@ export const makeStore = () =>
     reducer: persistedReducer,
     middleware: (getDefault) =>
       getDefault({
-        serializableCheck: { ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER] },
-      }).concat(userApi.middleware).concat(authApi.middleware).concat(jobApi.middleware),
         serializableCheck: {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
       })
-        .concat(api.middleware)
+        .concat(userApi.middleware)
         .concat(authApi.middleware)
         .concat(jobApi.middleware)
         .concat(areaApi.middleware),
