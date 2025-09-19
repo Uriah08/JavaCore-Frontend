@@ -8,7 +8,7 @@ import Home from "./components/pages/Home";
 import Login from "./auth/Login";
 import Test from "./components/pages/Test";
 import { useAuthContext } from "./context/AuthProvider";
-import type { JSX } from "react";
+import { type JSX } from "react";
 
 // Admin/User pages
 import AdminJobRegistry from "./components/pages/admin/AdminJobRegistry";
@@ -21,6 +21,7 @@ import UserJobRegistry from "./components/pages/user/UserJobRegistry";
 
 function App() {
   const { authUser } = useAuthContext();
+  
 
   const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
     if (!authUser) {
