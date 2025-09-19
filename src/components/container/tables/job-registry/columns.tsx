@@ -109,13 +109,13 @@ export const useColumns = () => {
     {
       id: "user",
       accessorKey: "user",
-      accessorFn: (row) => row.user.name,
+      accessorFn: (row) => row.user?.name || null,
       header: ({ column }) => {
         return (
           <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-            className="hover:bg-follow hover:text-white"
+            className={`hover:bg-follow hover:text-white ${authUser?.role !== "admin" && "hidden"}`}
           >
             Client
             <ArrowUpDown className="h-4 w-4" />
@@ -123,11 +123,11 @@ export const useColumns = () => {
         );
       },
       filterFn: (row, columnId, value) => {
-        const rowValue = row.getValue(columnId) as string; // Assert value is a string
+        const rowValue = row.getValue(columnId) as string;
         return rowValue.toLowerCase().includes(value.toLowerCase());
       },
       cell: ({ row }) => {
-        return <div className="flex ml-4">{row.original.user.name}</div>;
+        return <div className={`flex ml-4 ${authUser?.role !== "admin" && "hidden"}`}>{row.original.user?.name || ''}</div>;
       },
     },
     {
@@ -335,16 +335,19 @@ export const useColumns = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem 
                 onClick={() => openDialog("analyst")}
+                className={`${authUser?.role !== "admin" && "hidden"}`}
                 >
                   Assign Analyst
                 </DropdownMenuItem>
                 <DropdownMenuItem 
                 onClick={() => openDialog("reviewer")}
+                className={`${authUser?.role !== "admin" && "hidden"}`}
                 >
                   Assign Reviewer
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => openDialog("status")}
+                  className={`${authUser?.role !== "admin" && "hidden"}`}
                 >
                   Update Status
                 </DropdownMenuItem>

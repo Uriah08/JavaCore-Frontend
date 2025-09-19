@@ -5,23 +5,38 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff } from "lucide-react";
 
 import { registerSchema } from "@/schema"; 
+import { useCreateUserMutation } from "@/store/user-api";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
 const RegisterClient: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [createUser, {isLoading}] = useCreateUserMutation();
 
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      username: "",
+      name: "",
       email: "",
       password: "",
       confirmPassword: "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof registerSchema>) => {
-    console.log("Register form submitted:", values);
-    form.reset();
+  const onSubmit =  async (values: z.infer<typeof registerSchema>) => {
+    try {
+      console.log(values);
+      
+      const response = await createUser(values).unwrap();
+      toast(response.message);
+      form.reset();
+    } catch (error) {
+      console.log('ERROR:', error);
+      
+      const apiError = error as { data?: { error?: string } };
+      const errorMsg = apiError?.data?.error ?? "An unexpected error occurred";
+      toast.error(errorMsg);
+    }
   };
 
   return (
@@ -37,11 +52,11 @@ const RegisterClient: React.FC = () => {
             type="text"
             placeholder="Enter the username"
             className="w-full border rounded px-3 py-2 text-sm"
-            {...form.register("username")}
+            {...form.register("name")}
           />
-          {form.formState.errors.username && (
+          {form.formState.errors.name && (
             <p className="text-red-500 text-sm mt-1">
-              {form.formState.errors.username.message}
+              {form.formState.errors.name.message}
             </p>
           )}
         </div>
@@ -123,12 +138,13 @@ const RegisterClient: React.FC = () => {
         </div>
 
         {/* Submit */}
-        <button
+        <Button
+        disabled={isLoading}
           type="submit"
-          className="bg-main hover:bg-follow duration-200 transition-all text-white px-4 py-2 rounded-lg"
+          className="bg-main hover:bg-follow duration-200 transition-all text-white rounded-lg cursor-pointer"
         >
-          Create Client
-        </button>
+          {isLoading ? "Registering..." : "Register Client"}
+        </Button>
       </form>
     </div>
   );

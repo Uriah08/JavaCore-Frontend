@@ -18,7 +18,7 @@ export const changePasswordSchema = z.object({
 });
 
 export const registerSchema = z.object({
-  username: z
+  name: z
     .string()
     .min(5, {
       message: "Username must be at least 5 characters long",
