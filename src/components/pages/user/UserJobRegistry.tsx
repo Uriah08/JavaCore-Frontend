@@ -15,9 +15,9 @@ const UserJobRegistry = () => {
   
   return (
     <SidebarLayout>
-      <div className="w-full p-3 sm:p-5 flex xl:flex-row flex-col gap-3 sm:gap-5">
+      <div className="w-full p-3 bg-white sm:p-5 flex xl:flex-row flex-col gap-3 sm:gap-5">
         <div className="w-full h-full gap-3 sm:gap-5 flex flex-col">
-          <div className="w-full h-full p-5 bg-white rounded-xl flex flex-col shadow-lg">
+          <div className="w-full h-full p-5 bg-white rounded-xl flex flex-col shadow-lg border">
             <h1 className="text-xl sm:text-2xl font-bold">Job Registry</h1>
             <DataTable columns={columns} data={jobsData} loading={jobsLoading}/>
           </div>

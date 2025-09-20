@@ -18,11 +18,13 @@ import AdminAnalysisAndReport from "./components/pages/admin/AdminAnalysisAndRep
 import AdminUsers from "./components/pages/admin/AdminUsers";
 import UserJobRegistry from "./components/pages/user/UserJobRegistry";
 import AdminMachineList from "./components/pages/admin/AdminMachineList";
+import Error from "./components/pages/Error";
+import UserAnalysisAndReport from "./components/pages/user/UserAnalysisAndReport";
+import UserMachineList from "./components/pages/user/UserMachineList";
 
 function App() {
   const { authUser } = useAuthContext();
   
-
   const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
     if (!authUser) {
       return <Navigate to="/auth/login" replace />;
@@ -59,7 +61,11 @@ function App() {
           path="/create-job"
           element={
             <ProtectedRoute>
-              <AdminCreateJob />
+              {authUser?.role === "admin" ? (
+                <AdminCreateJob />
+              ) : (
+                <Navigate to={"/error"} replace />
+              )}
             </ProtectedRoute>
           }
         />
@@ -67,16 +73,24 @@ function App() {
           path="/create-route"
           element={
             <ProtectedRoute>
-              <AdminCreateRoute />
+              {authUser?.role === "admin" ? (
+                <AdminCreateRoute />
+              ) : (
+                <Navigate to={"/error"} replace />
+              )}
             </ProtectedRoute>
           }
         />
         
         <Route
-          path="/analysis-report"
+          path={authUser?.role === 'admin' ? "/analysis-report" : "/analysis-report/:id"}
           element={
             <ProtectedRoute>
-              <AdminAnalysisAndReport />
+              {authUser?.role === "admin" ? (
+                <AdminAnalysisAndReport />
+              ) : (
+                <UserAnalysisAndReport/>
+              )}
             </ProtectedRoute>
           }
         />
@@ -85,7 +99,11 @@ function App() {
           path="/users"
           element={
             <ProtectedRoute>
-              <AdminUsers />
+              {authUser?.role === "admin" ? (
+                <AdminUsers />
+              ) : (
+                <Navigate to={"/error"} replace />
+              )}
             </ProtectedRoute>
           }
         />
@@ -94,13 +112,17 @@ function App() {
           path="/machine-list"
           element={
             <ProtectedRoute>
-              <AdminMachineList />
+              {authUser?.role === "admin" ? (
+                <AdminMachineList />
+              ) : (
+                <UserMachineList/>
+              )}
             </ProtectedRoute>
           }
         />
-
+        <Route path="/error" element={<Error />} />
         {/* Catch-all */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to="/error" replace />} />
       </Routes>
     </Router>
   );
