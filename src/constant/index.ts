@@ -47,11 +47,6 @@ export const userSidebar = [
     link: "/job-registry",
   },
   {
-    title: "Analysis/Report",
-    icon: ChartArea,
-    link: "/analysis-report",
-  },
-  {
     title: "Database",
     icon: Database,
     link: "/machine-list",

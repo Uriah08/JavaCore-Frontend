@@ -55,6 +55,15 @@ import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/
 import { DialogClose } from "@radix-ui/react-dialog"
 import { useAuthContext } from "@/context/AuthProvider"
 
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuLabel,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu"
+import { useNavigate } from "react-router-dom"
+
 // import { useSession } from "next-auth/react"
 
 interface DataTableProps<TData, TValue> {
@@ -68,6 +77,7 @@ export function DataTable<TData extends { id: string }, TValue>({
   data,
   loading
 }: DataTableProps<TData, TValue>) {
+  const navigate = useNavigate();
   const { authUser } = useAuthContext();
 
   const [deleteJobs, { isLoading: deleteLoading }] = useDeleteJobsMutation();
@@ -193,12 +203,13 @@ export function DataTable<TData extends { id: string }, TValue>({
         </div>
       </div>
       <div className="flex items-center py-4 w-full justify-between gap-3">
+        
         <Input
           disabled={loading}
-          placeholder="Filter clients..."
-          value={(table.getColumn("user")?.getFilterValue() as string) ?? ""}
+          placeholder={`${authUser?.role === 'admin' ? 'Filter clients...' : 'Search Job Number...'}`}
+          value={authUser?.role === 'admin' ? (table.getColumn("user")?.getFilterValue() as string) ?? "" : (table.getColumn("jobNumber")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("user")?.setFilterValue(event.target.value)
+            authUser?.role === 'admin' ? table.getColumn("user")?.setFilterValue(event.target.value) : table.getColumn("jobNumber")?.setFilterValue(event.target.value)
           }
           className="w-full text-sm"
         />
@@ -277,9 +288,22 @@ export function DataTable<TData extends { id: string }, TValue>({
                 data-state={row.getIsSelected() && "selected"}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
+                  <ContextMenu key={cell.id}>
+                    <ContextMenuTrigger asChild>
+                      <TableCell>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    </ContextMenuTrigger>
+                    <ContextMenuContent>
+                      <ContextMenuLabel>Actions</ContextMenuLabel>
+                      <ContextMenuItem 
+                      className="cursor-pointer"
+                        onClick={() => navigate(`/analysis-report/${row.original.id}`)}
+                      >
+                        View Analysis and Report
+                      </ContextMenuItem>
+                    </ContextMenuContent>
+                  </ContextMenu>
                 ))}
               </TableRow>
             ))
