@@ -1,4 +1,3 @@
-import Loading from "@/components/ui/Loading";
 import { adminSidebar } from "@/constant";
 import { ChevronLeft, CircleHelp, LogOut } from "lucide-react";
 import React from "react";
@@ -18,12 +17,6 @@ const SidebarLayout = ({ children }: Props) => {
   const { authUser, setAuthUser } = useAuthContext();
 
   const [open, setOpen] = useState(true);
-  const [loading, setLoading] = useState(true);
-
-  React.useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 500);
-    return () => clearTimeout(timer);
-  }, []);
 
   const handleLogout = async () => {
     try {
@@ -145,17 +138,9 @@ const SidebarLayout = ({ children }: Props) => {
 
       {/* Main Content */}
       <div
-        className={`h-full w-full transition-all duration-300 ${
-          open ? (loading ? "" : "lg:pl-[269px]") : ""
-        }`}
+        className={`h-full w-full transition-all duration-300 lg:pl-[269px]"`}
       >
-        {loading ? (
-          <div className="w-full h-screen flex items-center justify-center">
-            <Loading />
-          </div>
-        ) : (
-          children
-        )}
+          {children}
       </div>
     </div>
   );

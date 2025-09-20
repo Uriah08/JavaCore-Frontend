@@ -22,7 +22,7 @@ import {
   useLazyGetComponentQuery,
   useSoftDeleteComponentMutation,
 } from "@/store/machine-list/component-api";
-import { useGetSessionQuery } from "@/store/auth-api";
+// import { useGetSessionQuery } from "@/store/auth-api";
 
 //types
 import type { Area, EquipmentGroup, EquipmentName } from "@/lib/types";
@@ -39,6 +39,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useAuthContext } from "@/context/AuthProvider";
 
 const List: React.FC = () => {
   // States
@@ -62,7 +63,7 @@ const List: React.FC = () => {
   const [updatingItemId, setUpdatingItemId] = useState("");
 
   // API Queries to fetch data
-  const { data: session } = useGetSessionQuery();
+  const { authUser } = useAuthContext();
   const {
     data: areaData,
     isLoading: areaLoading,
@@ -102,7 +103,7 @@ const List: React.FC = () => {
   const [deleteEquipmentName] = useSoftDeleteEquipmentNameMutation();
   const [deleteComponent] = useSoftDeleteComponentMutation();
 
-  if (!session) return <div>Please log in.</div>;
+  if (!authUser) return <div>Please log in.</div>;
 
   //loading state
   const loading =
@@ -232,7 +233,7 @@ const List: React.FC = () => {
         </h1>
         <div
           className={`flex space-x-2 ${
-            session?.user.role !== "admin" && "hidden"
+            authUser?.role !== "admin" && "hidden"
           }`}
         >
           <Button
@@ -338,7 +339,7 @@ const List: React.FC = () => {
                   <DropdownMenuTrigger asChild>
                     <EllipsisVertical
                       className={`text-zinc-500 z-20 ${
-                        session?.user.role !== "admin" && "hidden"
+                        authUser.role !== "admin" && "hidden"
                       }`}
                       onClick={(e) => e.stopPropagation()}
                     />

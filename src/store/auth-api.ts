@@ -1,3 +1,4 @@
+import type { GetUserResponse } from "@/lib/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const authApi = createApi({
@@ -26,13 +27,26 @@ export const authApi = createApi({
         credentials: "include",
       }),
     }),
-    getSession: build.query<
-      { user: { id: string; role: string } } | null,
-      void
-    >({
-      query: () => ({ url: "session/", method: "GET" }),
+    getCurrentUser: build.query<GetUserResponse, void>({
+      query: () => ({
+        url: "/me",
+        credentials: "include",
+        method: "GET",
+      })
     }),
+    refreshToken: build.mutation<GetUserResponse, void>({
+      query: () => ({
+        url: "/refresh-token",
+        method: "POST",
+        credentials: "include",
+      })
+    })
   }),
 });
 
-export const { useLoginMutation, useLogoutMutation, useGetSessionQuery } = authApi;
+export const { 
+  useLoginMutation, 
+  useLogoutMutation, 
+  useLazyGetCurrentUserQuery,
+  useRefreshTokenMutation
+} = authApi;
