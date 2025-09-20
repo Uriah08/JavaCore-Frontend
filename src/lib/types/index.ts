@@ -54,11 +54,12 @@ export type GetUserResponse = {
   user: {
     name: string;
     email: string;
-    role: "admin" | "user" | "manager";
-    emailVerified: Date | null;
+    role: "admin" | "user";
+    // emailVerified: Date | null;
   };
   message: string;
   success: boolean;
+  error: string | null
 };
 
 export type Client = {

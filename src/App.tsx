@@ -21,9 +21,14 @@ import AdminMachineList from "./components/pages/admin/AdminMachineList";
 import Error from "./components/pages/Error";
 import UserAnalysisAndReport from "./components/pages/user/UserAnalysisAndReport";
 import UserMachineList from "./components/pages/user/UserMachineList";
+import Loading from "./components/ui/Loading";
 
 function App() {
-  const { authUser } = useAuthContext();
+  const { authUser, loading } = useAuthContext();
+
+  if(loading){
+    return <Loading/>
+  }
   
   const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
     if (!authUser) {
@@ -83,13 +88,26 @@ function App() {
         />
         
         <Route
-          path={authUser?.role === 'admin' ? "/analysis-report" : "/analysis-report/:id"}
+          path={"/analysis-report"}
           element={
             <ProtectedRoute>
               {authUser?.role === "admin" ? (
                 <AdminAnalysisAndReport />
               ) : (
+                <Navigate to={"/error"} replace />
+              )}
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={"/analysis-report/:id"}
+          element={
+            <ProtectedRoute>
+              {authUser?.role === "user" ? (
                 <UserAnalysisAndReport/>
+              ) : (
+                <Navigate to={"/error"} replace />
               )}
             </ProtectedRoute>
           }

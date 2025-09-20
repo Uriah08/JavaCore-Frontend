@@ -300,7 +300,7 @@ export function DataTable<TData extends { id: string }, TValue>({
                       className="cursor-pointer"
                         onClick={() => navigate(`/analysis-report/${row.original.id}`)}
                       >
-                        View Analysis and Report
+                        View Analysis
                       </ContextMenuItem>
                     </ContextMenuContent>
                   </ContextMenu>

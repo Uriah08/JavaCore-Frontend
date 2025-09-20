@@ -25,10 +25,7 @@ import { useState } from "react";
 import Status from "../../dialogs/Status";
 import Reviewer from "../../dialogs/Reviewer";
 import { toast } from "sonner";
-// import React from "react";
-// import Reviewer from "../../dialogs/Reviewer";
-// import Status from "../../dialogs/Status";
-
+import { useNavigate } from "react-router-dom";
 // import { useSession } from "next-auth/react";
 // import ExportClient from "../../dialogs/client/ExportClient";
 // import { selectedJob } from "@/schema";
@@ -36,10 +33,8 @@ import { toast } from "sonner";
 // import { useRouter } from "next/navigation";
 
 export const useColumns = () => {
+  const navigate = useNavigate();
   const { authUser } = useAuthContext();
-//   const { data: session } = useSession();
-
-//   const router = useRouter();
 
   const columns: ColumnDef<ExtendedJob>[] = [
     {
@@ -352,6 +347,7 @@ export const useColumns = () => {
                   Update Status
                 </DropdownMenuItem>
                 <DropdownMenuItem
+                onClick={() => navigate(`/analysis-report/${job.id}`)}
                 >
                   View Analysis
                 </DropdownMenuItem>
